@@ -1,0 +1,59 @@
+@import "../settings/colours-palette";
+
+////
+/// @group helpers/colour
+////
+
+/// Get colour
+///
+/// @param {String} $colour - Name of colour from the colour palette
+///   (`$generic-colours`)
+/// @param {String} $legacy - Either the name of colour from the legacy palette
+///   or a colour literal, to return instead when in 'legacy mode' - matching
+///   the palette from GENERIC_UI Template, Elements or Frontend Toolkit
+/// @return {Colour} Representation of named colour
+///
+/// @example scss - Using legacy colours from the palette
+///  .foo {
+///    background-colour: generic-colour("mid-grey", $legacy: "grey-2");
+///  }
+///
+/// @example scss - Using legacy colour literals
+///  .foo {
+///    background-colour: generic-colour("green", $legacy: #BADA55);
+///  }
+///
+/// @throw if `$colour` is not a colour from the colour palette
+/// @access public
+
+@function generic-colour($colour, $legacy: false) {
+  $colour: quote($colour);
+
+  @if not map-has-key($generic-colours, $colour) {
+    @error "Unknown colour '#{$colour}' in #{$generic-colours}";
+  }
+
+  @return map-get($generic-colours, $colour);
+}
+
+/// Make a colour darker by mixing it with black
+///
+/// @param {Colour} $colour - colour to shade
+/// @param {Number} $percentage - percentage of `$colour` in returned color
+/// @return {Colour}
+/// @access public
+
+@function generic-shade($colour, $percentage) {
+  @return mix(#000000, $colour, $percentage);
+}
+
+/// Make a colour lighter by mixing it with white
+///
+/// @param {Colour} $colour - colour to tint
+/// @param {Number} $percentage - percentage of `$colour` in returned color
+/// @return {Colour}
+/// @access public
+
+@function generic-tint($colour, $percentage) {
+  @return mix(generic-colour("white"), $colour, $percentage);
+}

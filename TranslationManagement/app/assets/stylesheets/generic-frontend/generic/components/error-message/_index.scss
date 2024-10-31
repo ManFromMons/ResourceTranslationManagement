@@ -1,0 +1,13 @@
+@include generic-exports("generic/component/error-message") {
+  .generic-error-message {
+    @include generic-font($size: 19, $weight: bold);
+
+    display: block;
+    margin-top: generic-spacing(2);
+
+    margin-bottom: generic-spacing(3);
+    clear: both;
+
+    color: $generic-error-colour;
+  }
+}

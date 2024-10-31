@@ -1,0 +1,25 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the core layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+@import "links";
+@import "typography";
+
+@mixin generic-global-styles {
+  a {
+    @extend %generic-link;
+  }
+
+  p {
+    @extend %generic-body-m;
+  }
+}
+
+@include generic-exports("generic/core/global-styles") {
+
+  @if $generic-global-styles == true {
+    @include generic-global-styles;
+  }
+}

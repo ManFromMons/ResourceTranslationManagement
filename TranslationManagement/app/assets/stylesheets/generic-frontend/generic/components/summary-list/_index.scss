@@ -1,0 +1,145 @@
+@include generic-exports("generic/component/summary-list") {
+  .generic-summary-list {
+    @include generic-font($size: 19);
+    @include generic-text-colour;
+    @include generic-media-query($from: tablet) {
+      display: table;
+      width: 100%;
+      table-layout: fixed; // Required to allow us to wrap words that overflow.
+    }
+    margin: 0; // Reset default user agent styles
+    @include generic-responsive-margin(6, "bottom");
+  }
+
+  .generic-summary-list__row {
+    @include generic-media-query($until: tablet) {
+      margin-bottom: generic-spacing(3);
+      border-bottom: 1px solid $generic-border-colour;
+    }
+    @include generic-media-query($from: tablet) {
+      display: table-row;
+    }
+  }
+
+  .generic-summary-list__key,
+  .generic-summary-list__value,
+  .generic-summary-list__actions {
+    margin: 0; // Reset default user agent styles
+
+    @include generic-media-query($from: tablet) {
+      display: table-cell;
+      padding-top: generic-spacing(2);
+      padding-right: generic-spacing(4);
+      padding-bottom: generic-spacing(2);
+      border-bottom: 1px solid $generic-border-colour;
+    }
+  }
+
+  .generic-summary-list__actions {
+    margin-bottom: generic-spacing(3);
+    @include generic-media-query($from: tablet) {
+      width: 20%;
+      padding-right: 0;
+      text-align: right;
+    }
+  }
+
+  .generic-summary-list__key,
+  .generic-summary-list__value {
+    // Automatic wrapping for unbreakable text (e.g. URLs)
+    word-wrap: break-word; // Fallback for older browsers only
+    overflow-wrap: break-word;
+  }
+
+  .generic-summary-list__key {
+    margin-bottom: generic-spacing(1);
+    @include generic-typography-weight-bold;
+    @include generic-media-query($from: tablet) {
+      width: 30%;
+    }
+  }
+
+  .generic-summary-list__value {
+    @include generic-media-query($until: tablet) {
+      margin-bottom: generic-spacing(3);
+    }
+    @include generic-media-query($from: tablet) {
+      width: 50%;
+    }
+  }
+
+  // Expand width when value is last column (no action)
+  .generic-summary-list__value:last-child {
+    @include generic-media-query($from: tablet) {
+      width: 70%;
+    }
+  }
+
+  .generic-summary-list__value > p {
+    margin-bottom: generic-spacing(2);
+  }
+
+  .generic-summary-list__value > :last-child {
+    margin-bottom: 0;
+  }
+
+  .generic-summary-list__actions-list {
+    width: 100%;
+    margin: 0; // Reset default user agent styles
+    padding: 0; // Reset default user agent styles
+  }
+
+  .generic-summary-list__actions-list-item {
+    display: inline;
+    margin-right: generic-spacing(2);
+    padding-right: generic-spacing(2);
+  }
+
+  // In older browsers such as IE8, :last-child is not available,
+  // so only root the border divider where it is available.
+  .generic-summary-list__actions-list-item:not(:last-child) {
+    border-right: 1px solid $generic-border-colour;
+  }
+
+  .generic-summary-list__actions-list-item:last-child {
+    margin-right: 0;
+    padding-right: 0;
+    border: 0;
+  }
+
+  // No border on entire summary list
+  .generic-summary-list--no-border {
+    @include generic-media-query($until: tablet) {
+      .generic-summary-list__row {
+        border: 0;
+      }
+    }
+
+    @include generic-media-query($from: tablet) {
+      .generic-summary-list__key,
+      .generic-summary-list__value,
+      .generic-summary-list__actions {
+        // Remove 1px border, add 1px height back on
+        padding-bottom: generic-spacing(2) + 1px;
+        border: 0;
+      }
+    }
+  }
+
+  // No border on specific rows
+  .generic-summary-list__row--no-border {
+    @include generic-media-query($until: tablet) {
+      border: 0;
+    }
+
+    @include generic-media-query($from: tablet) {
+      .generic-summary-list__key,
+      .generic-summary-list__value,
+      .generic-summary-list__actions {
+        // Remove 1px border, add 1px height back on
+        padding-bottom: generic-spacing(2) + 1px;
+        border: 0;
+      }
+    }
+  }
+}

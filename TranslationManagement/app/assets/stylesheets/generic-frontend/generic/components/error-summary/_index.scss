@@ -1,0 +1,43 @@
+@import "../../core/lists";
+
+@include generic-exports("generic/component/error-summary") {
+  .generic-error-summary {
+    @include generic-text-colour;
+    @include generic-responsive-padding(4);
+    @include generic-responsive-margin(8, "bottom");
+
+    border: $generic-border-width solid $generic-error-colour;
+
+    &:focus {
+      outline: $generic-focus-width solid $generic-focus-colour;
+    }
+  }
+
+  .generic-error-summary__title {
+    @include generic-font($size: 24, $weight: bold);
+
+    margin-top: 0;
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-error-summary__body {
+    @include generic-font($size: 19);
+
+    p {
+      margin-top: 0;
+      @include generic-responsive-margin(4, "bottom");
+    }
+  }
+
+  // Cross-component class - adjusts styling of list component
+  .generic-error-summary__list {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .generic-error-summary__list a {
+    @include generic-typography-weight-bold;
+    @include generic-link-common;
+    @include generic-link-style-error;
+  }
+}

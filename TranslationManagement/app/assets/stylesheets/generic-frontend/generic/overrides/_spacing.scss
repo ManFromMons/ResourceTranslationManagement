@@ -1,0 +1,64 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the overrides layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+////
+/// @group overrides
+////
+
+/// Directions for spacing
+///
+/// @type Map
+/// @access private
+
+$_spacing-directions: (
+  "top",
+  "right",
+  "bottom",
+  "left"
+) !default;
+
+/// Spacing override classes
+///
+/// Generate spacing override classes for the given property (e.g. margin)
+/// for each point in the spacing scale.
+///
+/// @param {String} $property - Property to add spacing to (e.g. 'margin')
+///
+/// @example scss
+///   .generic-\!-margin-0 {
+///      margin: 0;
+///   }
+///
+///  .generic-\!-margin-top-1 {
+///     margin-top: [whatever spacing point 1 is...]
+///   }
+///
+/// @access private
+
+@mixin _generic-generate-spacing-overrides($property) {
+  // For each point in the spacing scale (defined in settings), create an
+  // override that affects all directions...
+  @each $scale-point, $scale-map in $generic-spacing-responsive-scale {
+
+    .generic-\!-#{$property}-#{$scale-point} {
+
+      @include _generic-responsive-spacing($scale-point, $property, "all", true);
+    }
+
+    // ... and then an override for each individual direction
+    @each $direction in $_spacing-directions {
+
+      .generic-\!-#{$property}-#{$direction}-#{$scale-point} {
+        @include _generic-responsive-spacing($scale-point, $property, $direction, true);
+      }
+    }
+  }
+}
+
+@include generic-exports("generic/overrides/spacing") {
+  @include _generic-generate-spacing-overrides("margin");
+  @include _generic-generate-spacing-overrides("padding");
+}

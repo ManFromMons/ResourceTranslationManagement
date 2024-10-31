@@ -1,0 +1,191 @@
+@import "../error-message/index";
+@import "../hint/index";
+@import "../label/index";
+
+@include generic-exports("generic/component/input") {
+  .generic-input {
+    @include generic-font($size: 19);
+
+    box-sizing: border-box;
+    width: 100%;
+    height: 40px;
+    @if $generic-typography-use-rem {
+      height: generic-px-to-rem(40px);
+    }
+    margin-top: 0;
+
+    padding: generic-spacing(1);
+    // setting any background-color makes text invisible when changing colours to dark backgrounds in Firefox (https://bugzilla.mozilla.org/show_bug.cgi?id=1335476)
+    // as background-color and color need to always be set together, color should not be set either
+    border: $generic-border-width-form-element solid $generic-input-border-colour;
+    border-radius: 0;
+
+    // Disable inner shadow and remove rounded corners
+    -webkit-appearance: none;
+       -moz-appearance: none;
+            appearance: none;
+
+    &:focus {
+      outline: $generic-focus-width solid $generic-focus-colour;
+      // Ensure outline appears outside of the element
+      outline-offset: 0;
+      // Double the border by adding its width again. Use `box-shadow` for this // instead of changing `border-width` - this is for consistency with
+      // components such as textarea where we avoid changing `border-width` as
+      // it will change the element size. Also, `outline` cannot be utilised
+      // here as it is already used for the yellow focus state.
+      box-shadow: inset 0 0 0 $generic-border-width-form-element;
+
+      @include generic-if-ie8 {
+        // IE8 doesn't support `box-shadow` so double the border with
+        // `border-width`.
+        border-width: $generic-border-width-form-element * 2;
+      }
+    }
+  }
+
+  .generic-input::-webkit-outer-spin-button,
+  .generic-input::-webkit-inner-spin-button {
+    margin: 0;
+    -webkit-appearance: none;
+  }
+
+  .generic-input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  .generic-input--error {
+    border: $generic-border-width-form-element-error solid $generic-error-colour;
+
+    &:focus {
+      border-color: $generic-input-border-colour;
+    }
+  }
+
+  // The ex measurements are based on the number of W's that can fit inside the input
+  // Extra space is left on the right hand side to allow for the Safari prefill icon
+  // Linear regression estimation based on visual tests: y = 1.76 + 1.81x
+
+  .generic-input--width-30 {
+    max-width: 56ex + 3ex;
+  }
+
+  .generic-input--width-20 {
+    max-width: 38ex + 3ex;
+  }
+
+  .generic-input--width-10 {
+    max-width: 20ex + 3ex;
+  }
+
+  .generic-input--width-5 {
+    max-width: 10.8ex;
+  }
+
+  .generic-input--width-4 {
+    max-width: 9ex;
+  }
+
+  .generic-input--width-3 {
+    max-width: 7.2ex;
+  }
+
+  .generic-input--width-2 {
+    max-width: 5.4ex;
+  }
+
+  .generic-input--small {
+    @include generic-font($size: 14);
+  }
+
+  .generic-input__wrapper {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+
+    .generic-input {
+      -webkit-box-flex: 0;
+          -ms-flex: 0 1 auto;
+              flex: 0 1 auto;
+    }
+
+    .generic-input:focus {
+      // Hack to stop focus style being overlapped by the suffix
+      z-index: 1;
+    }
+
+    // Split prefix/suffix onto separate lines on narrow screens
+    @include generic-media-query($until: mobile) {
+      display: block;
+
+      .generic-input {
+        // Set max-width to override potential width override class on the input
+        max-width: 100%;
+      }
+    }
+  }
+
+  .generic-input__prefix,
+  .generic-input__suffix {
+    @include generic-font($size: 19);
+
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 40px;
+    @if $generic-typography-use-rem {
+      min-width: generic-px-to-rem(40px);
+    }
+    height: 40px;
+    @if $generic-typography-use-rem {
+      height: generic-px-to-rem(40px);
+    }
+
+    padding: generic-spacing(1);
+    border: $generic-border-width-form-element solid $generic-input-border-colour;
+    background-color: generic-colour("light-grey", $legacy: "grey-3");
+
+    text-align: center;
+    @include generic-media-query($until: tablet) {
+      line-height: 1.6;
+    }
+    white-space: nowrap;
+
+    // Emphasise non-editable status of prefixes and suffixes
+    cursor: default;
+
+    -webkit-box-flex: 0;
+
+        -ms-flex: 0 0 auto;
+
+            flex: 0 0 auto;
+
+    // Split prefix/suffix onto separate lines on narrow screens
+    @include generic-media-query($until: mobile) {
+      display: block;
+      height: 100%;
+      white-space: normal;
+    }
+  }
+
+  .generic-input__prefix {
+    @include generic-media-query($until: mobile) {
+      border-bottom: 0;
+    }
+    @include generic-media-query($from: mobile) {
+      @include generic-not-ie8 {
+        border-right: 0;
+      }
+    }
+  }
+
+  // Split prefix/suffix onto separate lines on narrow screens
+  .generic-input__suffix {
+    @include generic-media-query($until: mobile) {
+      border-top: 0;
+    }
+    @include generic-media-query($from: mobile) {
+      @include generic-not-ie8 {
+        border-left: 0;
+      }
+    }
+  }
+}

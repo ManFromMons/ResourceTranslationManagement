@@ -1,0 +1,37 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the core layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+@include generic-exports("generic/core/links") {
+
+  %generic-link {
+    @include generic-link-common;
+    @include generic-link-style-default;
+    @include generic-link-print-friendly;
+  }
+
+  .generic-link {
+    @extend %generic-link;
+
+    &--no-underline {
+      text-decoration: none;
+    }
+  }
+
+  // Variant classes should always be used in conjunction with the .generic-link
+  // class, so we do not need the common link styles as they will be inherited.
+
+  .generic-link--muted {
+    @include generic-link-style-muted;
+  }
+
+  .generic-link--text-colour {
+    @include generic-link-style-text;
+  }
+
+  .generic-link--no-visited-state {
+    @include generic-link-style-no-visited-state;
+  }
+}

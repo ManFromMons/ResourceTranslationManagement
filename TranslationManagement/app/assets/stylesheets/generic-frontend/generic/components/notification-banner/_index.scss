@@ -1,0 +1,89 @@
+@include generic-exports("generic/component/notification-banner") {
+  .generic-notification-banner {
+    @include generic-font($size: 19);
+    @include generic-responsive-margin(8, "bottom");
+
+    border: $generic-border-width solid $generic-brand-colour;
+
+    background-color: $generic-brand-colour;
+
+    &:focus {
+      outline: $generic-focus-width solid $generic-focus-colour;
+    }
+  }
+
+  .generic-notification-banner__header {
+    padding: 2px generic-spacing(3) generic-spacing(1);
+
+    // Ensures the notification header appears separate to the notification body text in high contrast mode
+    border-bottom: 1px solid transparent;
+
+    @include generic-media-query($from: tablet) {
+      padding: 2px generic-spacing(4) generic-spacing(1);
+    }
+  }
+
+  .generic-notification-banner__title {
+    @include generic-font($size: 19, $weight: bold);
+
+    margin: 0;
+
+    padding: 0;
+
+    color: generic-colour("white");
+  }
+
+  .generic-notification-banner__content {
+    $padding-tablet: generic-spacing(4);
+    @include generic-text-colour;
+    padding: generic-spacing(3);
+
+    background-color: $generic-body-background-colour;
+
+    @include generic-media-query($from: tablet) {
+      padding: $padding-tablet;
+    }
+
+    // Wrap content at the same place that a 2/3 grid column ends, to maintain
+    // shorter line-lengths when the notification banner is full width
+    > * {
+      // When elements have their own padding (like lists), include the padding
+      // in the max-width calculation
+      box-sizing: border-box;
+
+      // Calculate the internal width of a two-thirds column...
+      $two-col-width: ($generic-page-width * 2 / 3) - ($generic-gutter * 1 / 3);
+
+      // ...and then factor in the left border and padding
+      $banner-exterior: ($padding-tablet + $generic-border-width);
+      max-width: $two-col-width - $banner-exterior;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .generic-notification-banner__heading {
+    @include generic-font($size: 24, $weight: bold);
+
+    margin: 0 0 generic-spacing(3) 0;
+
+    padding: 0;
+  }
+
+  .generic-notification-banner__link {
+    @include generic-link-common;
+    @include generic-link-style-no-visited-state;
+  }
+
+  .generic-notification-banner--success {
+    border-color: $generic-success-colour;
+
+    background-color: $generic-success-colour;
+
+    .generic-notification-banner__link {
+      @include generic-link-style-success;
+    }
+  }
+}

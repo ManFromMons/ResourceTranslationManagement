@@ -1,0 +1,287 @@
+@include generic-exports("generic/component/header") {
+
+  $generic-header-background: generic-colour("black");
+  $generic-header-border-color: $generic-brand-colour;
+  $generic-header-border-width: generic-spacing(2);
+  $generic-header-text: generic-colour("white");
+  $generic-header-link: generic-colour("white");
+  $generic-header-link-hover: generic-colour("white");
+  $generic-header-link-active: #1d8feb;
+  $generic-header-nav-item-border-color: #2e3133;
+
+  .generic-header {
+    @include generic-font($size: 16, $font-family: $header-font-family);
+
+    border-bottom: generic-spacing(2) solid generic-colour("white");
+    color: $generic-header-text;
+    background: $generic-header-background;
+  }
+
+  .generic-header__container--full-width {
+    padding: 0 generic-spacing(3);
+    border-color: $generic-header-border-color;
+
+    .generic-header__menu-button {
+      right: generic-spacing(3);
+    }
+  }
+
+  .generic-header__container {
+    @include generic-clearfix;
+    position: relative;
+    margin-bottom: $generic-header-border-width;
+    padding-top: generic-spacing(2);
+    border-bottom: $generic-header-border-width solid $generic-header-border-color;
+  }
+
+  .generic-header__logotype {
+    display: inline-block;
+    margin-right: generic-spacing(1);
+  }
+
+  .generic-header__product-name {
+    @include generic-font($size: 24, $line-height: 1);
+    display: inline-table;
+    padding-right: generic-spacing(2);
+  }
+
+  .generic-header__link {
+    text-decoration: none;
+    font-family: $header-font-family;
+
+    &:link,
+    &:visited {
+      color: $generic-header-link;
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus {
+      @include generic-focused-text;
+    }
+  }
+
+  .generic-header__link--homepage {
+    // Font size needs to be set on the link so that the box sizing is correct
+    // in Firefox
+    @include generic-font($size: false, $weight: bold, $font-family: $header-font-family);
+
+    color: $generic-header-link;
+    display: inline-block;
+    font-size: 30px; // We don't have a mixin that produces 30px font size
+    line-height: 1;
+
+    &:link,
+    &:visited {
+      text-decoration: none;
+    }
+
+    &:hover,
+    &:active {
+      // Negate the added border
+      margin-bottom: -1px;
+      // Omitting colour will use default value of currentColor – if we
+      // specified currentColor explicitly IE8 would ignore this rule.
+      border-bottom: 1px solid;
+    }
+
+    // Remove any borders that root when focused and hovered.
+    &:focus {
+      margin-bottom: 0;
+      border-bottom: 0;
+    }
+  }
+
+  .generic-header__link--service-name {
+    display: inline-block;
+    margin-bottom: generic-spacing(2);
+    @include generic-font($size: 24, $weight: bold, $font-family: $header-font-family);
+  }
+
+  .generic-header__logo,
+  .generic-header__content {
+    box-sizing: border-box;
+  }
+
+  .generic-header__logo {
+    @include generic-responsive-margin(2, "bottom");
+    padding-right: generic-spacing(8);
+
+    @include generic-media-query ($from: desktop) {
+      width: 33.33%;
+      padding-right: $generic-gutter-half;
+      float: left;
+      vertical-align: top;
+    }
+  }
+
+  .generic-header__content {
+    @include generic-media-query ($from: desktop) {
+      width: 66.66%;
+      padding-left: $generic-gutter-half;
+      float: left;
+    }
+  }
+
+  .generic-header__menu-button {
+    @include generic-font($size: 16);
+    display: none;
+    position: absolute;
+    top: generic-spacing(4);
+    right: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    color: $generic-header-link;
+    background: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    &:focus {
+      @include generic-focused-text;
+    }
+
+    &:after {
+      @include generic-shape-arrow($direction: down, $base: 10px, $display: inline-block);
+      content: "";
+      margin-left: generic-spacing(1);
+    }
+
+    @include generic-media-query ($from: tablet) {
+      top: generic-spacing(3);
+    }
+  }
+
+  .generic-header__menu-button--open {
+    &:after {
+      @include generic-shape-arrow($direction: up, $base: 10px, $display: inline-block);
+    }
+  }
+
+  .generic-header__navigation {
+    @include generic-responsive-margin(2, "bottom");
+    display: block;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .js-enabled {
+    .generic-header__menu-button {
+      display: block;
+      @include generic-media-query ($from: desktop) {
+        display: none;
+      }
+    }
+
+    .generic-header__navigation {
+      display: none;
+      @include generic-media-query ($from: desktop) {
+        display: block;
+      }
+    }
+
+    .generic-header__navigation--open {
+      display: block;
+    }
+  }
+
+  .generic-header__navigation--end {
+    @include generic-media-query ($from: desktop) {
+      margin: 0;
+      padding: generic-spacing(1) 0;
+      text-align: right;
+    }
+  }
+
+  .generic-header__navigation--no-service-name {
+    padding-top: generic-spacing(7);
+  }
+
+  .generic-header__navigation-item {
+    padding: generic-spacing(2) 0;
+    border-bottom: 1px solid $generic-header-nav-item-border-color;
+
+    @include generic-media-query ($from: desktop) {
+      display: inline-block;
+      margin-right: generic-spacing(3);
+      padding: generic-spacing(1) 0;
+      border: 0;
+    }
+
+    a {
+      @include generic-font($size: 16, $weight: bold, $font-family: $header-font-family);
+      white-space: nowrap;
+    }
+  }
+
+  .generic-header__navigation-item--active {
+    a {
+      &:link,
+      &:hover,
+      &:visited {
+        color: $generic-header-link-active;
+      }
+
+      // When focussed, the text colour needs to be darker to ensure that colour
+      // contrast is still acceptable
+      &:focus {
+        color: $generic-focus-text-colour;
+      }
+    }
+  }
+
+  .generic-header__navigation-item:last-child {
+    margin-right: 0;
+  }
+
+  @include generic-media-query($media-type: print) {
+    .generic-header {
+      border-bottom-width: 0;
+      color: generic-colour("black");
+      background: transparent;
+    }
+
+    // Hide the inverted crown when printing in browsers that don't support SVG.
+    .generic-header__logotype-crown-fallback-image {
+      display: none;
+    }
+
+    .generic-header__link {
+      &:link,
+      &:visited {
+        color: generic-colour("black");
+      }
+
+      // Do not append link href to GENERIC_UI link when printing (e.g. '(/)')
+      &:after {
+        display: none;
+      }
+    }
+  }
+
+  @if $generic-use-legacy-font {
+    // Begin adjustments for font baseline offset
+    // These should be removed when the font is updated with the correct baseline
+    .generic-header__logotype-crown,
+    .generic-header__logotype-crown-fallback-image {
+      position: relative;
+      top: -4px;
+      vertical-align: middle;
+    }
+
+    .generic-header {
+      $offset: 3px;
+      padding-top: $offset;
+    }
+
+    .generic-header__link--homepage {
+      line-height: 30px;
+    }
+    // End adjustments
+  }
+}

@@ -1,0 +1,72 @@
+@include generic-exports("generic/component/table") {
+  .generic-table {
+    @include generic-font($size: 19);
+    @include generic-text-colour;
+    width: 100%;
+    @include generic-responsive-margin(6, "bottom");
+
+    border-spacing: 0;
+    border-collapse: collapse;
+  }
+
+  .generic-table__header {
+    @include generic-typography-weight-bold;
+  }
+
+  .generic-table__header,
+  .generic-table__cell {
+    padding: generic-spacing(2) generic-spacing(4) generic-spacing(2) 0;
+    border-bottom: 1px solid $generic-border-colour;
+    text-align: left;
+    vertical-align: top;
+    font-size: inherit;
+    line-height: inherit;
+
+    &__no_border {
+      @extend .generic-table__cell;
+      border-bottom: 0;
+    }
+  }
+
+  .generic-table__cell--numeric {
+    @include generic-font($size: false, $tabular: true);
+  }
+
+  .generic-table__header--numeric,
+  .generic-table__cell--numeric {
+    text-align: right;
+  }
+
+  .generic-table__header:last-child,
+  .generic-table__cell:last-child {
+    padding-right: 0;
+  }
+
+  .generic-table__caption {
+    @include generic-typography-weight-bold;
+
+    display: table-caption;
+    text-align: left;
+  }
+
+  // Modifiers that make captions look more like their equivalent headings
+
+  .generic-table__caption--xl {
+    @include generic-font($size: 48, $weight: bold);
+    margin-bottom: generic-spacing(3);
+  }
+
+  .generic-table__caption--l {
+    @include generic-font($size: 36, $weight: bold);
+    margin-bottom: generic-spacing(3);
+  }
+
+  .generic-table__caption--m {
+    @include generic-font($size: 24, $weight: bold);
+    margin-bottom: generic-spacing(3);
+  }
+
+  .generic-table__caption--s {
+    @include generic-font($size: 19, $weight: bold);
+  }
+}

@@ -1,0 +1,25 @@
+@import "../error-message/index";
+@import "../hint/index";
+@import "../label/index";
+@import "../textarea/index";
+
+@include generic-exports("generic/component/character-count") {
+  .generic-character-count {
+    @include generic-responsive-margin(6, "bottom");
+
+    .generic-form-group,
+    .generic-textarea {
+      margin-bottom: generic-spacing(1);
+    }
+  }
+
+  .generic-character-count__message {
+    @include generic-font($size: false, $tabular: true);
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
+  .generic-character-count__message--disabled {
+    visibility: hidden;
+  }
+}

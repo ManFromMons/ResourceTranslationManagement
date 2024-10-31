@@ -1,0 +1,86 @@
+@include generic-exports("generic/component/tag") {
+  .generic-tag {
+
+    display: inline-block;
+
+    // When a user customises their colours often the background is removed,
+    // by adding a outline we ensure that the tag component still keeps it's meaning.
+    // https://accessibility.blog.GENERIC_UI/2017/03/27/how-users-change-colours-on-websites/
+    outline: 2px solid transparent;
+    outline-offset: -2px;
+
+    color: generic-colour("white");
+    background-color: generic-colour("blue");
+    letter-spacing: 1px;
+
+    text-decoration: none;
+    text-transform: uppercase;
+
+    @if $generic-use-legacy-font {
+      // Since New Transport sits slightly higher than other common fonts.
+      // We use intentionally uneven padding to make it balanced, this can be
+      // removed using the version of the font that has a more common vertical spacing.
+      @include generic-font($size: 16, $weight: bold, $line-height: 1.25);
+      padding-top: 4px;
+      padding-right: 8px;
+      padding-bottom: 1px;
+      padding-left: 8px;
+    } @else {
+      @include generic-font($size: 16, $weight: bold, $line-height: 1);
+      padding-top: 5px;
+      padding-right: 8px;
+      padding-bottom: 4px;
+      padding-left: 8px;
+    }
+  }
+
+  // Deprecated. We'll remove this class in a future release. Use `.generic-tag--grey` instead.
+  .generic-tag--inactive {
+    background-color: generic-colour("dark-grey", $legacy: "grey-1");
+  }
+
+  .generic-tag--grey {
+    color: generic-shade(generic-colour("dark-grey", $legacy: "grey-1"), 30);
+    background: generic-tint(generic-colour("dark-grey", $legacy: "grey-1"), 90);
+  }
+
+  .generic-tag--purple {
+    color: generic-shade(generic-colour("purple"), 20);
+    background: generic-tint(generic-colour("purple"), 80);
+  }
+
+  .generic-tag--turquoise {
+    color: generic-shade(generic-colour("turquoise"), 60);
+    background: generic-tint(generic-colour("turquoise"), 70);
+  }
+
+  .generic-tag--blue {
+    color: generic-shade(generic-colour("blue"), 30);
+    background: generic-tint(generic-colour("blue"), 80);
+  }
+
+  .generic-tag--yellow {
+    color: generic-shade(generic-colour("yellow"), 65);
+    background: generic-tint(generic-colour("yellow"), 75);
+  }
+
+  .generic-tag--orange {
+    color: generic-shade(generic-colour("orange"), 55);
+    background: generic-tint(generic-colour("orange"), 70);
+  }
+
+  .generic-tag--red {
+    color: generic-shade(generic-colour("red"), 30);
+    background: generic-tint(generic-colour("red"), 80);
+  }
+
+  .generic-tag--pink {
+    color: generic-shade(generic-colour("pink"), 40);
+    background: generic-tint(generic-colour("pink"), 80);
+  }
+
+  .generic-tag--green {
+    color: generic-shade(generic-colour("green"), 20);
+    background: generic-tint(generic-colour("green"), 80);
+  }
+}

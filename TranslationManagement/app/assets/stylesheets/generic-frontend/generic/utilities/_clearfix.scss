@@ -1,0 +1,5 @@
+@include generic-exports("generic/utilities/clearfix") {
+  .generic-clearfix {
+    @include generic-clearfix;
+  }
+}

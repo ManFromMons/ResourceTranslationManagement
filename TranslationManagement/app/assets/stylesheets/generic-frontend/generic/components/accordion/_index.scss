@@ -1,0 +1,206 @@
+@include generic-exports("generic/component/accordion") {
+
+  $generic-accordion-link-colour: $generic-link-colour;
+  $generic-accordion-link-hover-colour: generic-colour("light-blue");
+  $generic-accordion-border-width: 3px;
+
+  .generic-accordion {
+    @include generic-responsive-margin(6, "bottom");
+  }
+
+  // Borders between accordion sections
+  .generic-accordion__section {
+    padding-top: generic-spacing(3);
+  }
+
+  .generic-accordion__section-header {
+    padding-top: generic-spacing(3);
+    padding-bottom: generic-spacing(3);
+  }
+
+  .generic-accordion__section-heading {
+    // Override browser defaults to ensure consistent element height
+    // Font size is set in .generic-accordion__section-button
+    @include generic-font(24);
+
+    margin-top: 0; // Override browser default
+    margin-bottom: 0; // Override browser default
+  }
+
+  // Buttons within the sections don’t need default styling
+  .generic-accordion__section-button {
+    @include generic-font($size: 24, $weight: bold);
+    display: inline-block;
+    margin-bottom: 0;
+    padding-top: generic-spacing(3);
+  }
+
+  .generic-accordion__section-summary {
+    margin-top: generic-spacing(2);
+    margin-bottom: 0;
+  }
+
+  // Remove the bottom margin from the last item inside the content
+  .generic-accordion__section-content > :last-child {
+    margin-bottom: 0;
+  }
+
+  // JavaScript enabled
+  .js-enabled {
+    .generic-accordion {
+      // Border at the bottom of the whole accordion
+      border-bottom: 1px solid $generic-border-colour;
+    }
+
+    // Borders between accordion sections
+    .generic-accordion__section {
+      padding-top: 0;
+    }
+
+    // Hide the body of collapsed sections
+    .generic-accordion__section-content {
+      display: none;
+      @include generic-responsive-padding(3, "top");
+      @include generic-responsive-padding(3, "bottom");
+    }
+
+    // Show the body of expanded sections
+    .generic-accordion__section--expanded .generic-accordion__section-content {
+      display: block;
+    }
+
+    // This is styled to look like a link not a button
+    .generic-accordion__open-all {
+      @include generic-font($size: 16);
+      position: relative;
+      z-index: 1;
+      margin: 0;
+      padding: 0;
+      border-width: 0;
+      color: $generic-link-colour;
+      background: none;
+      cursor: pointer;
+      -webkit-appearance: none;
+
+      @include generic-link-common;
+      @include generic-link-style-default;
+
+      // Remove default button focus outline in Firefox
+      &::-moz-focus-inner {
+        padding: 0;
+        border: 0;
+      }
+    }
+
+    // Section headers have a pointer cursor as an additional affordance
+    .generic-accordion__section-header {
+      position: relative;
+      // Safe area on the right to avoid clashing with icon
+      padding-right: 40px;
+      border-top: 1px solid $generic-border-colour;
+      color: $generic-accordion-link-colour;
+      cursor: pointer;
+    }
+
+    // For devices that can't hover such as touch devices,
+    // remove hover state as it can be stuck in that state (iOS).
+    @media (hover: none) {
+      .generic-accordion__section-header:hover {
+        border-top-color: $generic-accordion-link-colour;
+        box-shadow: inset 0 $generic-accordion-border-width 0 0 $generic-accordion-link-colour;
+      }
+    }
+
+    // Buttons within the headers don’t need default styling
+    .generic-accordion__section-button {
+      @include generic-typography-common;
+      margin-top: 0;
+      margin-bottom: 0;
+      margin-left: 0;
+      padding: 0;
+      border-width: 0;
+      color: inherit;
+      background: none;
+      text-align: left;
+      cursor: pointer;
+      -webkit-appearance: none;
+
+      &:focus {
+        @include generic-focused-text;
+      }
+
+      // Remove default button focus outline in Firefox
+      &::-moz-focus-inner {
+        padding: 0;
+        border: 0;
+      }
+    }
+
+    // Extend the touch area of the button to span the section header
+    .generic-accordion__section-button:after {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    }
+
+    .generic-accordion__section-button:hover:not(:focus) {
+      text-decoration: underline;
+    }
+
+    // For devices that can't hover such as touch devices,
+    // remove hover state as it can be stuck in that state (iOS).
+    @media (hover: none) {
+      .generic-accordion__section-button:hover {
+        text-decoration: none;
+      }
+    }
+
+    .generic-accordion__controls {
+      text-align: right;
+    }
+
+    // Display an icon to the right of each header to indicate open/closed status,
+    // and as an additional affordance.
+    .generic-accordion__icon {
+      position: absolute;
+      top: 50%;
+      right: 15px;
+      width: 16px;
+      height: 16px;
+      margin-top: -8px;
+    }
+
+    .generic-accordion__icon:after,
+    .generic-accordion__icon:before {
+      content: "";
+      box-sizing: border-box;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      width: 25%;
+      height: 25%;
+      margin: auto;
+      border: 2px solid transparent;
+      background-color: generic-colour("black");
+    }
+
+    .generic-accordion__icon:before {
+      width: 100%;
+    }
+
+    .generic-accordion__icon:after {
+      height: 100%;
+    }
+
+    // Vertical bar should be hidden when section is open, to display a '-' icon
+    .generic-accordion__section--expanded .generic-accordion__icon:after {
+      content: " ";
+      display: none;
+    }
+  }
+}

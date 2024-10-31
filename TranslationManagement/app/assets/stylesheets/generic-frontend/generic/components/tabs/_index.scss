@@ -1,0 +1,135 @@
+@include generic-exports("generic/component/tabs") {
+  .generic-tabs {
+    @include generic-responsive-margin(1, "top");
+    @include generic-responsive-margin(6, "bottom");
+  }
+
+  .generic-tabs__title {
+    @include generic-font($size: 19);
+    @include generic-text-colour;
+    margin-bottom: generic-spacing(2);
+  }
+
+  .generic-tabs__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    @include generic-responsive-margin(6, "bottom");
+  }
+
+  .generic-tabs__list-item {
+    @include generic-font($size: 19);
+    margin-left: generic-spacing(5);
+
+    &:before {
+      @include generic-text-colour;
+      content: "\2014 "; // "— "
+      margin-left: - generic-spacing(5);
+      padding-right: generic-spacing(1);
+    }
+  }
+
+  .generic-tabs__tab {
+    @include generic-link-style-default;
+
+    display: inline-block;
+    margin-bottom: generic-spacing(2);
+
+    // Focus state for mobile and when JavaScript is disabled
+    // It is removed for JS-enabled desktop styles
+    &:focus {
+      @include generic-focused-text;
+    }
+  }
+
+  .generic-tabs__panel {
+    @include generic-responsive-margin(8, "bottom");
+  }
+
+  // JavaScript enabled
+  .js-enabled {
+
+    @include generic-media-query($from: tablet) {
+      .generic-tabs__list {
+        @include generic-clearfix;
+        margin-bottom: 0;
+        border-bottom: 1px solid $generic-border-colour;
+      }
+
+      .generic-tabs__title {
+        display: none;
+      }
+
+      .generic-tabs__list-item {
+        position: relative;
+
+        margin-right: generic-spacing(1);
+        margin-bottom: 0;
+        margin-left: 0;
+        padding: generic-spacing(2) generic-spacing(4);
+
+        float: left;
+        background-color: generic-colour("light-grey", $legacy: "grey-4");
+        text-align: center;
+
+        &:before {
+          content: none;
+        }
+      }
+
+      .generic-tabs__list-item--selected {
+        $border-width: 1px;
+
+        position: relative;
+
+        margin-top: - generic-spacing(1);
+
+        // Compensation for border (otherwise we get a shift)
+        margin-bottom: -$border-width;
+        padding-top: generic-spacing(3) - $border-width;
+        padding-right: generic-spacing(4) - $border-width;
+        padding-bottom: generic-spacing(3) + $border-width;
+        padding-left: generic-spacing(4) - $border-width;
+
+        border: $border-width solid $generic-border-colour;
+        border-bottom: 0;
+
+        background-color: $generic-body-background-colour;
+
+        .generic-tabs__tab {
+          text-decoration: none;
+        }
+      }
+
+      .generic-tabs__tab {
+        @include generic-link-style-text;
+
+        margin-bottom: 0;
+
+        &:after {
+          content: "";
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+        }
+      }
+
+      .generic-tabs__panel {
+        @include generic-responsive-margin(0, "bottom");
+        padding: generic-spacing(6) generic-spacing(4);
+        border: 1px solid $generic-border-colour;
+        border-top: 0;
+
+        & > :last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .generic-tabs__panel--hidden {
+        display: none;
+      }
+    }
+  }
+}

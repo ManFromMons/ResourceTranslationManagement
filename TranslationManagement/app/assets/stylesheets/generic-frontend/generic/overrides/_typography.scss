@@ -1,0 +1,27 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the overrides layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+@include generic-exports("generic/overrides/typography") {
+  // Font size and line height
+
+  // Generate typography override classes for each responsive font map in the
+  // typography scale eg .generic-\!-font-size-80
+  @each $size in map-keys($generic-typography-scale) {
+    .generic-\!-font-size-#{$size} {
+      @include generic-typography-responsive($size, $important: true);
+    }
+  }
+
+  // Weights
+
+  .generic-\!-font-weight-regular {
+    @include generic-typography-weight-regular($important: true);
+  }
+
+  .generic-\!-font-weight-bold {
+    @include generic-typography-weight-bold($important: true);
+  }
+}

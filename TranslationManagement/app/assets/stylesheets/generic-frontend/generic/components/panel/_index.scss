@@ -1,0 +1,44 @@
+@include generic-exports("generic/component/panel") {
+  .generic-panel {
+    @include generic-font($size: 19);
+
+    box-sizing: border-box;
+
+    margin-bottom: generic-spacing(3);
+    padding: generic-spacing(7) - $generic-border-width;
+
+    border: $generic-border-width solid transparent;
+
+    text-align: center;
+
+    @include generic-media-query($until: tablet) {
+      padding: generic-spacing(6) - $generic-border-width;
+    }
+  }
+
+  .generic-panel--confirmation {
+    color: generic-colour("white");
+    background: generic-colour("green", $legacy: "turquoise");
+
+    @include generic-media-query($media-type: print) {
+      border-color: currentColor;
+      color: $generic-print-text-colour;
+      background: none;
+    }
+  }
+
+  .generic-panel__title {
+    margin-top: 0;
+    margin-bottom: generic-spacing(6);
+
+    @include generic-font($size: 48, $weight: bold);
+  }
+
+  .generic-panel__title:last-child {
+    margin-bottom: 0;
+  }
+
+  .generic-panel__body {
+    @include generic-font($size: 36);
+  }
+}

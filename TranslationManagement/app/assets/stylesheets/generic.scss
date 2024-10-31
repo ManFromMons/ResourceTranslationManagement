@@ -1,0 +1,11 @@
+$generic-assets-path: "generic-frontend/generic/assets/";
+
+@import "generic-frontend/generic/settings/all";
+@import "settings";
+@import "generic-frontend/generic/tools/all";
+@import "generic-frontend/generic/helpers/all";
+@import "generic-frontend/generic/core/all";
+@import "generic-frontend/generic/objects/all";
+@import "generic-frontend/generic/components/all";
+@import "generic-frontend/generic/utilities/all";
+@import "generic-frontend/generic/overrides/all";

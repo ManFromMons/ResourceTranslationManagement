@@ -1,0 +1,30 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the overrides layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+// stylelint-disable declaration-no-important
+@include generic-exports("generic/overrides/display") {
+  .generic-\!-display-inline {
+    display: inline !important;
+  }
+
+  .generic-\!-display-inline-block {
+    display: inline-block !important;
+  }
+
+  .generic-\!-display-block {
+    display: block !important;
+  }
+
+  .generic-\!-display-none {
+    display: none !important;
+  }
+
+  @include generic-media-query($media-type: print) {
+    .generic-\!-display-none-print {
+      display: none !important;
+    }
+  }
+}

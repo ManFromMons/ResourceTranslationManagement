@@ -1,0 +1,192 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the core layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+@include generic-exports("generic/core/typography") {
+
+  // Headings
+
+  %generic-heading-xl {
+    @include generic-text-colour;
+    @include generic-font($size: 48, $weight: bold);
+
+    display: block;
+
+    margin-top: 0;
+    @include generic-responsive-margin(8, "bottom");
+  }
+
+  .generic-heading-xl {
+    @extend %generic-heading-xl;
+  }
+
+  %generic-heading-l {
+    @include generic-text-colour;
+    @include generic-font($size: 36, $weight: bold);
+
+    display: block;
+
+    margin-top: 0;
+    @include generic-responsive-margin(6, "bottom");
+  }
+
+  .generic-heading-l {
+    @extend %generic-heading-l;
+  }
+
+  %generic-heading-m {
+    @include generic-text-colour;
+    @include generic-font($size: 24, $weight: bold);
+
+    display: block;
+
+    margin-top: 0;
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-heading-m {
+    @extend %generic-heading-m;
+  }
+
+  %generic-heading-s {
+    @include generic-text-colour;
+    @include generic-font($size: 19, $weight: bold);
+
+    display: block;
+
+    margin-top: 0;
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-heading-s {
+    @extend %generic-heading-s;
+  }
+
+  // Captions to be used inside headings
+
+  .generic-caption-xl {
+    @include generic-font($size: 27);
+
+    display: block;
+
+    margin-bottom: generic-spacing(1);
+
+    color: $generic-secondary-text-colour;
+  }
+
+  .generic-caption-l {
+    @include generic-font($size: 24);
+
+    display: block;
+
+    margin-bottom: generic-spacing(1);
+    color: $generic-secondary-text-colour;
+
+    @include generic-media-query($from: tablet) {
+      margin-bottom: 0;
+    }
+  }
+
+  .generic-caption-m {
+    @include generic-font($size: 19);
+
+    display: block;
+
+    color: $generic-secondary-text-colour;
+  }
+
+  // Body (paragraphs)
+
+  %generic-body-l {
+    @include generic-text-colour;
+    @include generic-font($size: 24);
+
+    margin-top: 0;
+    @include generic-responsive-margin(6, "bottom");
+  }
+
+  .generic-body-l {
+    @extend %generic-body-l;
+  }
+
+  %generic-body-m {
+    @include generic-text-colour;
+    @include generic-font($size: 19);
+
+    margin-top: 0;
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-body-m {
+    @extend %generic-body-m;
+  }
+
+  %generic-body-s {
+    @include generic-text-colour;
+    @include generic-font($size: 16);
+
+    margin-top: 0;
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-body-s {
+    @extend %generic-body-s;
+  }
+
+  %generic-body-xs {
+    @include generic-text-colour;
+    @include generic-font($size: 14);
+
+    margin-top: 0;
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-body-xs {
+    @extend %generic-body-xs;
+  }
+
+  // Usage aliases
+
+  // Using extend to alias means we also inherit any contextual adjustments that
+  // refer to the 'original' class name
+
+  .generic-body-lead {
+    @extend %generic-body-l;
+  }
+
+  .generic-body {
+    @extend %generic-body-m;
+  }
+
+  // Contextual adjustments
+  // Add top padding to headings that appear directly after paragraphs.
+
+  %generic-body-l  + %generic-heading-l {
+    padding-top: generic-spacing(1);
+
+    @include generic-media-query($from: tablet) {
+      padding-top: generic-spacing(2);
+    }
+  }
+
+  %generic-body-m  + %generic-heading-l,
+  %generic-body-s  + %generic-heading-l,
+  %generic-list + %generic-heading-l {
+    @include generic-responsive-padding(4, "top");
+  }
+
+  %generic-body-m + %generic-heading-m,
+  %generic-body-s + %generic-heading-m,
+  %generic-list + %generic-heading-m,
+  %generic-body-m + %generic-heading-s,
+  %generic-body-s + %generic-heading-s,
+  %generic-list + %generic-heading-s {
+    padding-top: generic-spacing(1);
+
+    @include generic-media-query($from: tablet) {
+      padding-top: generic-spacing(2);
+    }
+  }
+}

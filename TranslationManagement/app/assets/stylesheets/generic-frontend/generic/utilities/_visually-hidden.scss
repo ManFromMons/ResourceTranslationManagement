@@ -1,0 +1,9 @@
+@include generic-exports("generic/utilities/visually-hidden") {
+  .generic-visually-hidden {
+    @include generic-visually-hidden;
+  }
+
+  .generic-visually-hidden-focusable {
+    @include generic-visually-hidden-focusable;
+  }
+}

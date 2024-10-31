@@ -1,0 +1,52 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the overrides layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+// stylelint-disable declaration-no-important
+@include generic-exports("generic/overrides/width") {
+  .generic-\!-width-full {
+    width: 100% !important;
+  }
+
+  .generic-\!-width-three-quarters {
+    width: 100% !important;
+
+    @include generic-media-query($from: tablet) {
+      width: 75% !important;
+    }
+  }
+
+  .generic-\!-width-two-thirds {
+    width: 100% !important;
+
+    @include generic-media-query($from: tablet) {
+      width: 66.66% !important;
+    }
+  }
+
+  .generic-\!-width-one-half {
+    width: 100% !important;
+
+    @include generic-media-query($from: tablet) {
+      width: 50% !important;
+    }
+  }
+
+  .generic-\!-width-one-third {
+    width: 100% !important;
+
+    @include generic-media-query($from: tablet) {
+      width: 33.33% !important;
+    }
+  }
+
+  .generic-\!-width-one-quarter {
+    width: 100% !important;
+
+    @include generic-media-query($from: tablet) {
+      width: 25% !important;
+    }
+  }
+}

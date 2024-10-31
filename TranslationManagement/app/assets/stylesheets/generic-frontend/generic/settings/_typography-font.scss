@@ -1,0 +1,80 @@
+@import "typography-font-families";
+
+////
+/// @group settings/typography
+////
+
+/// Use 'legacy' fonts
+///
+/// Whether or not to use v1 nta font from GENERIC_UI Elements / Frontend
+/// Toolkit, for teams that are migrating to GENERIC_UI Frontend and may be using
+/// components from both places in a single application.
+///
+/// @type Boolean
+/// @access public
+
+$generic-use-legacy-font: false !default;
+
+// =========================================================
+// Font families
+// =========================================================
+
+/// Font families to use for all typography on screen media
+///
+/// @type List
+/// @access public
+
+$generic-font-family: if(
+  $generic-use-legacy-font,
+  $generic-font-family-nta,
+  $generic-font-family-gds-transport
+) !default;
+
+/// Font families to use when displaying tabular numbers
+///
+/// @type List
+/// @access public
+
+$generic-font-family-tabular: if(
+  $generic-use-legacy-font,
+  $generic-font-family-nta-tabular,
+  false
+) !default;
+
+/// Font families to use for print media
+///
+/// We recommend that you use system fonts when printing. This will avoid issues
+/// with some printer drivers and operating systems.
+///
+/// @type List
+/// @access public
+
+$generic-font-family-print: sans-serif !default;
+
+/// Include the default @font-face declarations
+///
+/// If you have set $generic-font-family to something other than
+/// `$generic-font-family-gds-transport` this option is disabled by default.
+///
+/// @type Boolean
+/// @access public
+
+$generic-include-default-font-face: (
+  $generic-font-family == $generic-font-family-gds-transport
+) !default;
+
+// =========================================================
+// Font weights
+// =========================================================
+
+/// Font weight for regular typography
+///
+/// @type Number
+/// @access public
+$generic-font-weight-regular: 400 !default;
+
+/// Font weight for bold typography
+///
+/// @type Number
+/// @access public
+$generic-font-weight-bold: 700 !default;

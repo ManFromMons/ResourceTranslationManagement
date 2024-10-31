@@ -1,0 +1,56 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the core layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+@include generic-exports("generic/core/section-break") {
+
+  %generic-section-break {
+    margin: 0;
+    border: 0;
+  }
+
+  .generic-section-break {
+    @extend %generic-section-break;
+  }
+
+  // Sizes
+
+  %generic-section-break--xl {
+    @include generic-responsive-margin(8, "top");
+    @include generic-responsive-margin(8, "bottom");
+  }
+
+  .generic-section-break--xl {
+    @extend %generic-section-break--xl;
+  }
+
+  %generic-section-break--l {
+    @include generic-responsive-margin(6, "top");
+    @include generic-responsive-margin(6, "bottom");
+  }
+
+  .generic-section-break--l {
+    @extend %generic-section-break--l;
+  }
+
+  %generic-section-break--m {
+    @include generic-responsive-margin(4, "top");
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-section-break--m {
+    @extend %generic-section-break--m;
+  }
+
+  // Visible variant
+
+  %generic-section-break--visible {
+    border-bottom: 1px solid $generic-border-colour;
+  }
+
+  .generic-section-break--visible {
+    @extend %generic-section-break--visible;
+  }
+}

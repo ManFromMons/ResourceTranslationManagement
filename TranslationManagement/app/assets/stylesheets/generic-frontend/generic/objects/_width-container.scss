@@ -1,0 +1,84 @@
+@import "../base";
+
+////
+/// @group objects/layout
+////
+
+/// Width container mixin
+///
+/// Used to create page width and custom width container classes.
+///
+/// @param {String} $width [$generic-page-width] - Width in pixels
+///
+/// @example scss - Creating a 1200px wide container class
+///  .app-width-container--wide {
+///    @include generic-width-container(1200px);
+///  }
+///
+/// @access public
+
+@mixin generic-width-container($width: $generic-page-width) {
+
+  // By default, limit the width of the container to the page width
+  max-width: $width;
+
+  // On mobile, add half width gutters
+  margin-right: $generic-gutter-half;
+  margin-left: $generic-gutter-half;
+
+  // Respect 'display cutout' safe area (avoids notches and rounded corners)
+  @supports (margin: unquote("max(calc(0px))")) {
+    $gutter-safe-area-right: calc(#{$generic-gutter-half} + env(safe-area-inset-right));
+    $gutter-safe-area-left: calc(#{$generic-gutter-half} + env(safe-area-inset-left));
+
+    // Use max() to pick largest margin, default or with safe area
+    // Escaped due to Sass max() vs. CSS native max()
+    margin-right: unquote("max(#{$generic-gutter-half}, #{$gutter-safe-area-right})");
+    margin-left: unquote("max(#{$generic-gutter-half}, #{$gutter-safe-area-left})");
+  }
+
+  // On tablet, add full width gutters
+  @include generic-media-query($from: tablet) {
+    margin-right: $generic-gutter;
+    margin-left: $generic-gutter;
+
+    // Respect 'display cutout' safe area (avoids notches and rounded corners)
+    @supports (margin: unquote("max(calc(0px))")) {
+      $gutter-safe-area-right: calc(#{$generic-gutter-half} + env(safe-area-inset-right));
+      $gutter-safe-area-left: calc(#{$generic-gutter-half} + env(safe-area-inset-left));
+
+      // Use max() to pick largest margin, default or with safe area
+      // Escaped due to Sass max() vs. CSS native max()
+      margin-right: unquote("max(#{$generic-gutter}, #{$gutter-safe-area-right})");
+      margin-left: unquote("max(#{$generic-gutter}, #{$gutter-safe-area-left})");
+    }
+  }
+
+  // As soon as the viewport is greater than the width of the page plus the
+  // gutters, just centre the content instead of adding gutters.
+  @include generic-media-query($and: "(min-width: #{($width + $generic-gutter * 2)})") {
+    margin-right: auto;
+    margin-left: auto;
+
+    // Since a safe area may have previously been set above,
+    // we need to duplicate this margin that centers the page.
+    @supports (margin: unquote("max(calc(0px))")) {
+      margin-right: auto;
+      margin-left: auto;
+    }
+  }
+
+  @include generic-if-ie8 {
+    width: $width;
+    // Since media queries are not supported in IE8,
+    // we need to duplicate this margin that centers the page.
+    margin-right: auto;
+    margin-left: auto;
+  }
+}
+
+@include generic-exports("generic/objects/width-container") {
+  .generic-width-container {
+    @include generic-width-container;
+  }
+}

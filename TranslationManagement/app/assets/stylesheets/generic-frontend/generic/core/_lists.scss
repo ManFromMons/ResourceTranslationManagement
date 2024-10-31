@@ -1,0 +1,72 @@
+@if not mixin-exists("generic-exports") {
+  @warn "Importing items from the core layer without first importing `base` is deprecated, and will no longer work as of GENERIC_UI Frontend v4.0.";
+}
+
+@import "../base";
+
+@include generic-exports("generic/core/lists") {
+
+  %generic-list {
+    @include generic-font($size: 19);
+    @include generic-text-colour;
+    margin-top: 0;
+    @include generic-responsive-margin(4, "bottom");
+    padding-left: 0;
+    list-style-type: none;
+
+    // Add a top margin for nested lists
+    %generic-list {
+      margin-top: generic-spacing(2);
+    }
+  }
+
+  %generic-list > li {
+    // Lists without numbers or bullets should always have extra space between
+    // list items. Lists with numbers or bullets only have this extra space on
+    // tablet and above
+    margin-bottom: generic-spacing(1);
+  }
+
+  .generic-list {
+    @extend %generic-list;
+  }
+
+  %generic-list--bullet {
+    padding-left: generic-spacing(4);
+    list-style-type: disc;
+  }
+
+  %generic-list--number {
+    padding-left: generic-spacing(4);
+    list-style-type: decimal;
+  }
+
+  %generic-list--bullet > li,
+  %generic-list--number > li {
+    margin-bottom: 0;
+
+    @include generic-media-query($from: tablet) {
+      margin-bottom: generic-spacing(1);
+    }
+  }
+
+  %generic-list--spaced > li {
+    margin-bottom: generic-spacing(2);
+
+    @include generic-media-query($from: tablet) {
+      margin-bottom: generic-spacing(3);
+    }
+  }
+
+  .generic-list--bullet {
+    @extend %generic-list--bullet;
+  }
+
+  .generic-list--number {
+    @extend %generic-list--number;
+  }
+
+  .generic-list--spaced {
+    @extend %generic-list--spaced;
+  }
+}

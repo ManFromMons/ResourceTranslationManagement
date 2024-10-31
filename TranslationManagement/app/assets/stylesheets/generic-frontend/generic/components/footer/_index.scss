@@ -1,0 +1,203 @@
+@include generic-exports("generic/component/footer") {
+
+  $generic-footer-background: $generic-canvas-background-colour;
+  $generic-footer-border: $generic-border-colour;
+  // This variable can be removed entirely once the legacy palette goes away,
+  // as it'll just be the same as $generic-footer-border.
+  $generic-footer-border-top: $generic-border-colour;
+  $generic-footer-text: $generic-text-colour;
+  $generic-footer-link: $generic-footer-text;
+  $generic-footer-link-hover: false;
+
+  // Based on the generic-crest-2x.png image dimensions.
+  $generic-footer-crest-image-width-2x: 250px;
+  $generic-footer-crest-image-height-2x: 204px;
+  // Half the 2x image so that it fits the regular 1x size.
+  $generic-footer-crest-image-width: ($generic-footer-crest-image-width-2x / 2);
+  $generic-footer-crest-image-height: ($generic-footer-crest-image-height-2x / 2);
+
+  .generic-footer {
+    @include generic-font($size: 16);
+    @include generic-responsive-padding(7, "top");
+    @include generic-responsive-padding(5, "bottom");
+
+    border-top: 1px solid $generic-footer-border-top;
+    color: $generic-footer-text;
+    background: $generic-footer-background;
+  }
+
+  .generic-footer__link {
+    &:link,
+    &:visited,
+    &:hover,
+    &:active {
+      color: $generic-footer-link;
+    }
+
+    &:focus {
+      @include generic-focused-text;
+    }
+  }
+
+  .generic-footer__section-break {
+    margin: 0; // Reset `<hr>` default margins
+    @include generic-responsive-margin(8, "bottom");
+    border: 0; // Reset `<hr>` default borders
+    border-bottom: 1px solid $generic-footer-border;
+  }
+
+  .generic-footer__meta {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; // Support: Flexbox
+    margin-right: -$generic-gutter-half;
+    margin-left: -$generic-gutter-half;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; // Support: Flexbox
+    -webkit-box-align: end;
+        -ms-flex-align: end;
+            align-items: flex-end; // Support: Flexbox
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center; // Support: Flexbox
+  }
+
+  .generic-footer__meta-item {
+    margin-right: $generic-gutter-half;
+    margin-bottom: generic-spacing(5);
+    margin-left: $generic-gutter-half;
+  }
+
+  .generic-footer__meta-item--grow {
+    -webkit-box-flex: 1;
+        -ms-flex: 1;
+            flex: 1; // Support: Flexbox
+    @include generic-media-query ($until: tablet) {
+      -ms-flex-preferred-size: 320px;
+          flex-basis: 320px; // Support: Flexbox
+    }
+  }
+
+  .generic-footer__licence-logo {
+    display: inline-block;
+    margin-right: generic-spacing(2);
+    @include generic-media-query ($until: desktop) {
+      margin-bottom: generic-spacing(3);
+    }
+    vertical-align: top;
+  }
+
+  .generic-footer__licence-description {
+    display: inline-block;
+  }
+
+  .generic-footer__copyright-logo {
+    display: inline-block;
+    min-width: $generic-footer-crest-image-width;
+    padding-top: ($generic-footer-crest-image-height + generic-spacing(2));
+    background-image: generic-image-url("generic-crest.png");
+    @include generic-device-pixel-ratio {
+      background-image: generic-image-url("generic-crest-2x.png");
+    }
+    background-repeat: no-repeat;
+    background-position: 50% 0%;
+    background-size: $generic-footer-crest-image-width $generic-footer-crest-image-height;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+  }
+
+  .generic-footer__inline-list {
+    margin-top: 0;
+    margin-bottom: generic-spacing(3);
+    padding: 0;
+  }
+
+  .generic-footer__meta-custom {
+    margin-bottom: generic-spacing(4);
+  }
+
+  .generic-footer__inline-list-item {
+    display: inline-block;
+    margin-right: generic-spacing(3);
+    margin-bottom: generic-spacing(1);
+  }
+
+  .generic-footer__heading {
+    @include generic-responsive-margin(7, "bottom");
+    padding-bottom: generic-spacing(4);
+    @include generic-media-query ($until: tablet) {
+      padding-bottom: generic-spacing(2);
+    }
+    border-bottom: 1px solid $generic-footer-border;
+  }
+
+  .generic-footer__navigation {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex; // Support: Flexbox
+    margin-right: -$generic-gutter-half;
+    margin-left: -$generic-gutter-half;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap; // Support: Flexbox
+  }
+
+  .generic-footer__section {
+    display: inline-block;
+    margin-right: $generic-gutter-half;
+    margin-bottom: $generic-gutter;
+    margin-left: $generic-gutter-half;
+    vertical-align: top;
+    // Ensure columns take up equal width (typically one-half:one-half)
+    -webkit-box-flex: 1;
+        -ms-flex-positive: 1;
+            flex-grow: 1; // Support: Flexbox
+    -ms-flex-negative: 1;
+        flex-shrink: 1; // Support: Flexbox
+    @include generic-media-query ($until: desktop) {
+      // Make sure columns do not drop below 200px in width
+      // Will typically result in wrapping, and end up in a single column on smaller screens.
+      -ms-flex-preferred-size: 200px;
+          flex-basis: 200px; // Support: Flexbox
+    }
+  }
+
+  // If there are only two sections, set the layout to be two-third:one-third on desktop
+  @include generic-media-query ($from: desktop) {
+    // We match the first section with `:first-child`.
+    // To ensure the section is one of two, we can count backwards using `:nth-last-child(2)`.
+    .generic-footer__section:first-child:nth-last-child(2) {
+      -webkit-box-flex: 2;
+          -ms-flex-positive: 2;
+              flex-grow: 2; // Support: Flexbox
+    }
+  }
+
+  .generic-footer__list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    -webkit-column-gap: $generic-gutter;
+            column-gap: $generic-gutter; // Support: Columns
+  }
+
+  @include generic-media-query ($from: desktop) {
+    .generic-footer__list--columns-2 {
+      -webkit-column-count: 2;
+              column-count: 2; // Support: Columns
+    }
+
+    .generic-footer__list--columns-3 {
+      -webkit-column-count: 3;
+              column-count: 3; // Support: Columns
+    }
+  }
+
+  .generic-footer__list-item {
+    @include generic-responsive-margin(4, "bottom");
+  }
+
+  .generic-footer__list-item:last-child {
+    margin-bottom: 0;
+  }
+}

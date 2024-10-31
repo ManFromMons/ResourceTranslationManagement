@@ -1,0 +1,44 @@
+@include generic-exports("generic/component/hint") {
+  .generic-hint {
+    @include generic-font($size: 19);
+
+    display: block;
+
+    margin-bottom: generic-spacing(3);
+
+    color: $generic-secondary-text-colour;
+  }
+
+  // Reduces margin-bottom of hint when used after the default label (no class)
+  // or generic-label--s for better vertical alignment.
+
+  // This adjustment will not work when the label is inside the <h1>, however it
+  // is unlikely that the default or generic-label--s class would be used in this
+  // case.
+
+  // This adjustment will not work in browsers that do not support :not().
+  // Users with these browsers will see the default size margin (5px larger).
+
+  .generic-label:not(.generic-label--m):not(.generic-label--l):not(.generic-label--xl) + .generic-hint {
+    margin-bottom: generic-spacing(2);
+  }
+
+  // Reduces margin-bottom of hint when used after the default legend (no class)
+  // or generic-fieldset__legend--s for better vertical alignment.
+
+  // This adjustment will not work when the legend is outside the <h1>, however
+  // it is unlikely that the default or generic-fieldset__legend--s class would be
+  // used in this case.
+
+  // This adjustment will not work in browsers that do not support :not().
+  // Users with these browsers will see the default size margin (5px larger).
+
+  .generic-fieldset__legend:not(.generic-fieldset__legend--m):not(.generic-fieldset__legend--l):not(.generic-fieldset__legend--xl) + .generic-hint {
+    margin-bottom: generic-spacing(2);
+  }
+
+  // Reduces visual spacing of legend when there is a hint
+  .generic-fieldset__legend + .generic-hint {
+    margin-top: -(generic-spacing(1));
+  }
+}

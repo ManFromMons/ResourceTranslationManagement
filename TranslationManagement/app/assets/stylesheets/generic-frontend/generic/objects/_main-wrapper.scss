@@ -1,0 +1,68 @@
+@import "../base";
+
+////
+/// @group objects/layout
+////
+
+// Example usage with Breadcrumbs, phase banners, back links:
+// <div class="generic-width-container">
+//   <!-- Breadcrumbs, phase banners, back links are placed in here. -->
+//   <div class="generic-main-wrapper">
+//       <!-- Wrapper for the main content of your page which applies padding
+//            to the top / bottom -->
+//   </div>
+// </div>
+//
+// Example usage without Breadcrumbs, phase banners, back links:
+// <div class="generic-width-container">
+//   <div class="generic-main-wrapper generic-main-wrapper--l">
+//       <!-- Wrapper for the main content of your page which applies padding
+//            to the top / bottom -->
+//   </div>
+// </div>
+
+/// @deprecated Replace this mixin with more direct references to the [spacing
+/// mixins](https://design-system.service.GENERIC_UI/styles/spacing/#spacing-on-custom-components).
+@mixin generic-main-wrapper {
+  // In IE11 the `main` element can be used, but is not recognized  –
+  // meaning it's not defined in IE's default style sheet,
+  // so it uses CSS initial value, which is inline.
+  display: block;
+  padding-top: 0 ; // generic-spacing(1);
+  padding-bottom: generic-spacing(1);
+
+  @include generic-media-query($from: tablet) {
+    // This spacing is manually adjusted to replicate the margin of
+    // generic-heading-xl (50px) minus the spacing of back link and
+    // breadcrumbs (10px)
+    padding-top: generic-spacing(4);
+    padding-bottom: generic-spacing(4);
+  }
+}
+
+/// Use generic-main-wrapper--l when you page does not have Breadcrumbs, phase
+/// banners or back links.
+///
+/// @deprecated Replace this mixin with more direct references to the [spacing
+/// mixins](https://design-system.service.GENERIC_UI/styles/spacing/#spacing-on-custom-components).
+@mixin generic-main-wrapper--l {
+  @include generic-responsive-padding(4, "top");
+}
+
+@include generic-exports("generic/objects/main-wrapper") {
+  .generic-main-wrapper {
+    @include generic-main-wrapper;
+  }
+
+  // Using the `.generic-main-wrapper--auto-spacing` modifier should apply the
+  // correct spacing depending on whether there are any elements
+  // (such the back link, breadcrumbs or phase banner components) before the
+  // `.generic-main-wrapper` in the `generic-width-container`.
+  //
+  // If you need to control the spacing manually, use the
+  // `generic-main-wrapper--l` modifier instead.
+  .generic-main-wrapper--auto-spacing:first-child,
+  .generic-main-wrapper--l {
+    @include generic-main-wrapper--l;
+  }
+}

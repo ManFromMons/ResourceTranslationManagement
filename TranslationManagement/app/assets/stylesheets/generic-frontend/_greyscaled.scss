@@ -1,0 +1,45 @@
+$generic-link-colour: darken(#003078, 20%);
+$generic-link-hover-colour: #003078;
+$generic-link-visited-colour: darken(#003078, 20%);
+$generic-header-link-active: #fff;
+
+$generic-colours: (
+        "purple": grayscale(#2e358b),
+        "light-purple": grayscale(#6f72af),
+        "bright-purple": grayscale(#912b88),
+        "pink": grayscale(#d53880),
+        "light-pink": grayscale(#f499be),
+        "red": desaturate(#b10e1e, 30%),
+        "bright-red": grayscale(#df3034),
+        "orange": grayscale(#f47738),
+        "brown": grayscale(#b58840),
+        "yellow": desaturate(#ffbf47, 50%),
+        "light-green": grayscale(#85994b),
+        "green": desaturate(#006435, 30%),
+        "turquoise": grayscale(#28a197),
+        "light-blue": grayscale(#2b8cc4),
+        "blue": grayscale(#005ea5),
+        "dark-blue": grayscale(#003078),
+        "black": grayscale(#0b0c0c),
+        "grey-1": grayscale(#6f777b),
+        "grey-2": grayscale(#bfc1c3),
+        "grey-3": grayscale(#dee0e2),
+        "grey-4": grayscale(#f8f8f8),
+        "grey-5": grayscale(#eeeeee),
+        "white": grayscale(#ffffff),
+        "green-2": grayscale(#F0FFF1),
+        "green-3": grayscale(#006435),
+        "link": desaturate(#007194, 30%),
+        "link-hover": grayscale(#15a0cc),
+        "link-visited": grayscale(#15a0cc),
+        "link-active": grayscale(#15a0cc),
+        "failure": desaturate(#B10E1E, 30%),
+        "warning": desaturate(#DE8F1A, 30%),
+        "success": desaturate(#0EB163, 30%),
+        "primary": grayscale(rgb(194, 20, 35)),
+        "secondary": grayscale(#1d74b4),
+        "dark-grey": grayscale(#2F2F2F),
+        "mid-grey": grayscale(#908f8f),
+        "focus": desaturate(#ffdd00, 30%),
+        "light-grey": grayscale(#f3f2f1)
+);

@@ -1,0 +1,26 @@
+@import "../error-message/index";
+@import "../input/index";
+@import "../hint/index";
+@import "../label/index";
+
+@include generic-exports("generic/component/date-input") {
+  .generic-date-input {
+    @include generic-clearfix;
+    // font-size: 0 removes whitespace caused by inline-block
+    font-size: 0;
+  }
+
+  .generic-date-input__item {
+    display: inline-block;
+    margin-right: generic-spacing(4);
+    margin-bottom: 0;
+  }
+
+  .generic-date-input__label {
+    display: block;
+  }
+
+  .generic-date-input__input {
+    margin-bottom: 0;
+  }
+}
