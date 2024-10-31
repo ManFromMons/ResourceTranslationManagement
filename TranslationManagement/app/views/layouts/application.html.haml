@@ -1,0 +1,52 @@
+%html{ lang: "en", class: "generic-template app-html-class" }
+  %head
+    %meta{ charset: "utf-8" }
+    %title= t('common.app_title')
+    = csrf_meta_tags
+    = csp_meta_tag
+    %meta{ name: "viewport", content: "width=device-width, initial-scale=1, viewport-fit=cover" }
+    %meta{ name: "theme-color", content: "blue" }
+    %meta{ "http-equiv": "X-UA-Compatible", content: "IE=edge" }
+    = stylesheet_link_tag 'application', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+    = favicon_pack_tag 'favicon.ico'
+    = yield :head
+  %body{ class: "generic-template__body app-body-class", data: { test: "My value", other: "report:details" } }
+    :javascript
+      document.body.className = ((document.body.className) ? document.body.className + ' js-enabled' : 'js-enabled');
+    %a.generic-skip-link{ href: "#main-content" } Skip to main content
+    %header.app-header{ role: "banner", data: { module: "generic-header" } }
+      .generic-header__container.generic-width-container
+        .generic-header__logo
+          .generic-header__link.generic-header__link--homepage
+            %span.generic-header__logotype
+              %img{ src: asset_pack_url('media/images/logo.svg'), alt: t('common.logo_description') }
+              %span.generic-header__logotype-text
+                %a.generic-header__link.generic-header__link--homepage{ href: root_path }
+                  = t('common.app_name')
+        .generic-header__content
+          %a.generic-header__link.generic-header__link--service-name{ href: "/" }
+            = section_name
+          %nav
+            %ul#navigation.generic-header__navigation{ aria: { label: "Top Level Navigation" } }
+              %li.generic-header__navigation-item{ class: ('generic-header__navigation-item--active' if current_page?(phrases_url)) }
+                = link_to t('common.phrase_management'), phrases_path, class: 'generic-header__link'
+              %li.generic-header__navigation-item{ class: ('generic-header__navigation-item--active' if current_page?(taxon_index_path)) }
+                = link_to t('common.category_management'), taxon_index_url, class: 'generic-header__link'
+    .generic-width-container.app-width-container--wide
+      %main.generic-main-wrapper.app-main-class{ id: "main-content", role: "main" }
+        - unless flash.empty?
+          :javascript
+            - flash.each do |f|
+              - type = f[0].to_s.gsub('alert', 'error').gsub('notice', 'info')
+              toastr['#{type}']('#{f[1]}');
+        - if @back_path.present?
+          .back-button-wrapper
+            = render partial: '/layouts/back-link'
+        = yield
+    %footer.app-footer{ role: "contentinfo" }
+      .generic-width-container
+        .generic-footer__navigation
+          %ul.generic-list
+            %li= t('common.copyright')
+    = javascript_pack_tag 'generic', 'data-turbolinks-track': 'reload'

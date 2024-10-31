@@ -25,6 +25,17 @@ require "govuk_app_config/govuk_puma"
 threads_count = ENV.fetch("RAILS_MAX_THREADS", 3)
 threads threads_count, threads_count
 
+if Rails.env.development?
+  key_path = File.expand_path("../../localhost.key")
+  cert_path = File.expand_path("../../localhost.crt")
+
+  ssl_bind "127.0.0.1", "3001", {
+    key: key_path,
+    cert: cert_path,
+    verify_mode: "none"
+  }
+end
+
 GovukPuma.configure_rails(self)
 
 # Allow puma to be restarted by `bin/rails restart` command.
